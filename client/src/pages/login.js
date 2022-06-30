@@ -3,8 +3,14 @@ import React from "react";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
+import Axios from "axios";
 
-const handleClickLogin = (values) => console.log(values);
+const handleClickLogin = (values) => {
+    Axios.post("http://localhost:3001/login", {
+        email: values.email,
+        password: values.password,
+    }
+)};
 
 const validationLogin = yup.object().shape({
     email: yup.string().email("Este email não é válido").required("Este campo é obrigatorio"),

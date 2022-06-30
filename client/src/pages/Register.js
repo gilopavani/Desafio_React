@@ -3,8 +3,16 @@ import React from "react";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
+import Axios from "axios";
 
-const handleClickCadastro = (values) => console.log(values);
+const handleClickCadastro = (values) => {
+    Axios.post("http://localhost:3001/register", {
+        email: values.email,
+        password: values.password,
+    }).then((response) => {
+        console.log(response);
+    });
+};
 
 const validationCadastro = yup.object().shape({
     email: yup.string().email("Este email não é válido").required("Este campo é obrigatorio"),

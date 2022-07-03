@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
-import Axios from "axios";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../context/hooks/useAuth";
 import App from "../layouts/App";
 import '../estilos/login.css'
@@ -22,7 +20,7 @@ export default function Login() {
        return (
         <div class="container bg-light">
                 <div class="col-md-12 text-center">
-                    <h1>Você já possui uma conta</h1>
+                    <h1>Você já esta logado</h1>
                 <Button variant="light" size="lg" id="button" onClick={red}>Voltar para Inicio</Button>
             </div>
         </div>

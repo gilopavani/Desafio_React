@@ -4,6 +4,7 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
+import history from "../history";
 
 
 
@@ -28,6 +29,7 @@ export default function Login() {
             localStorage.setItem('token', response.data.token);
             setUser(response.data);
         });
+        history.push('/register');
     };
 
 
@@ -60,8 +62,7 @@ export default function Login() {
                 </div>
                 <Button variant="primary" className="button" type="submit">Login</Button>
                 
-                <p>Email: {user?.token}</p>
-                <p>Email token: {localStorage.getItem('token')}</p>
+                {/*  */}
             </Form>
         </Formik>
         {/*  */}

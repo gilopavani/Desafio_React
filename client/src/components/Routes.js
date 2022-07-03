@@ -4,6 +4,7 @@ import {
     BrowserRouter,
     Routes,
     Route,
+    Link ,
 } from 'react-router-dom'
 
 import Home from "../pages/Home";
@@ -11,17 +12,29 @@ import About from "../pages/About";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 
-const Rotas = () => (
+function CustomRoute(children) {
+    // const token = localStorage.getItem('token');
+    // console.log('ola')
 
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/about" element={<About/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-        </Routes>
-    </BrowserRouter>
+    // if(isPrivate && !token){
+    //     return <Link  to="/login"/>
+    // }
+    // return <Route {...rest}/>
+    
+}
 
-)
+export default function Rotas() {
 
-export default Rotas
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/about" element={<About/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/" element={<Home/>}/>
+            </Routes>
+        </BrowserRouter>
+
+    )
+    
+}

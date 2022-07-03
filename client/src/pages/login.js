@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 
-const handleClickLogin = (values) => {
-    Axios.post("http://localhost:3001/login", {
-        email: values.email,
-        password: values.password,
-    }
-)};
+
+
+
 
 const validationLogin = yup.object().shape({
     email: yup.string().email("Este email não é válido").required("Este campo é obrigatorio"),
     password: yup.string().min(8,'Necessário 8 caracteres').required("Este campo é obrigatorio")
 });
 
-const Login = () => (
+export default function Login() {
+    const token = localStorage.getItem('@welcome-app/username');
 
-    
+    const [user, setUser] = useState();
 
-    <div>
+    const handleClickLogin = (values) => {
+        Axios.post("http://localhost:3001/login", {
+            email: values.email,
+            password: values.password,
+        }).then((response) => {
+            console.log(response);
+            localStorage.setItem('token', response.data.token);
+            setUser(response.data);
+        });
+    };
+
+
+
+    return(
+        <div>
         <h1>Login</h1>
         <Formik
         initialValues={{}}
@@ -30,27 +42,30 @@ const Login = () => (
         >
             <Form className="login-form">
                 <div className="login-form-group">
-                    <Field name="email" className="form-field" placeHolder="Email" />
+                    <Field name="email" className="form-field" placeholder="Email" />
                     <ErrorMessage
                     component="span"
                     name="email"
-                    classname="form-error"
+                    className="form-error"
                     />
                 </div>
 
                 <div className="login-form-group">
-                    <Field name="password" className="form-field" placeHolder="Senha" />
+                    <Field name="password" className="form-field" placeholder="Senha" />
                     <ErrorMessage
                     component="span"
                     name="password"
-                    classname="form-error"
+                    className="form-error"
                     />
                 </div>
                 <Button variant="primary" className="button" type="submit">Login</Button>
+                
+                <p>Email: {user?.token}</p>
+                <p>Email token: {localStorage.getItem('token')}</p>
             </Form>
         </Formik>
         {/*  */}
-    </div>
-)
-
-export default Login;
+    </div> 
+    );
+    
+}

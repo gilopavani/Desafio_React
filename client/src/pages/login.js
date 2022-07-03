@@ -17,9 +17,23 @@ const validationLogin = yup.object().shape({
 
 export default function Login() {
     const handleClickLogin = useAuth().handleClickLogin;
+    const red = useAuth().callRegister;
+    if(localStorage.getItem('token')){
+       return (
+        <div class="container bg-light">
+                <div class="col-md-12 text-center">
+                    <h1>Você já possui uma conta</h1>
+                <Button variant="light" size="lg" id="button" onClick={red}>Voltar para Inicio</Button>
+            </div>
+        </div>
+            
+                
+            
+       )
+    }else{
 
-    return(
-        <App>
+        return(
+            <App>
             <div >
                 
                 <Formik
@@ -58,7 +72,8 @@ export default function Login() {
                 {/*  */}
             </div> 
         </App>
-        
-    );
+        )}
+
+       
     
 }

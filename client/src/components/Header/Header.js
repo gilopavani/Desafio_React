@@ -13,7 +13,7 @@ export default function Header() {
 
   return(
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Navbar.Brand href="#home">
+    <Navbar.Brand href="/">
     {/* <i class="bi bi-alarm-fill text-warning" style={{ fontSize: 50 }}></i> */}
     <i class="bi bi-calendar-fill text-warning" id='icone'></i>
       IAgenda

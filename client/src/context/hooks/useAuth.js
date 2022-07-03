@@ -13,7 +13,15 @@ export default function useAuth() {
     }
     let navigate  = useNavigate();
     
-    
+    function callRegister() {
+        
+        if(localStorage.getItem('token')){
+            navigate("/", { replace: true });
+        }else{
+            navigate("/register", { replace: true });
+        }
+        
+    }
 
     function handleClickLogin(values) {
         Axios.post("http://localhost:3001/login", {
@@ -30,7 +38,7 @@ export default function useAuth() {
         setLoading(false);
     }, []);
 
-    return {logout , handleClickLogin, loading};
+    return {logout , handleClickLogin, loading, callRegister};
     
 }
 

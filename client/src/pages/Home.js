@@ -4,6 +4,7 @@ import { Row, Col } from "reactstrap";
 import App from "../layouts/App";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import useAuth from "../context/hooks/useAuth";
 
 // import Image from 'react-bootstrap/Image'
 import '../estilos/Home.css'
@@ -11,7 +12,7 @@ import '../estilos/Home.css'
 
 
 export default function Home() {
-    
+    const register = useAuth().callRegister;
     
     return (
 
@@ -26,7 +27,7 @@ export default function Home() {
                         <p id="titulo-02" >
                             Com a IAgenda você pode marcar todos seus compromissos e ter certeza que sempre será lembrado deles.
                         </p>
-                        <Button variant="light" size="lg" id="button">Registre-se</Button>
+                        <Button variant="light" size="lg" id="button" onClick={register}>Registre-se</Button>
                     </Col>
                     <Col>
                         <img class="img-fluid rounded" src='https://images.unsplash.com/photo-1506784365847-bbad939e9335?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=868&q=80'/>

@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React, {useContext} from "react";
 import { Row, Col } from "reactstrap";
 import App from "../layouts/App";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import {logout} from "../context/hooks/useAuth";
-import { Formik, Form } from "formik";
+
 // import Image from 'react-bootstrap/Image'
 import '../estilos/Home.css'
 
 
 
-
 export default function Home() {
+    
+    
     return (
 
         <App>

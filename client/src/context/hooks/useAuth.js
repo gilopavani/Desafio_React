@@ -1,18 +1,19 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 import history from "../../history";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 
 export default function useAuth() {
+    const [loading, setLoading] = useState(true);
 
     function logout() {
         localStorage.removeItem('token');
         history.push('/login');
     }
-
-    const [user, setUser] = useState();
     let navigate  = useNavigate();
+    
+    
 
     function handleClickLogin(values) {
         Axios.post("http://localhost:3001/login", {
@@ -21,12 +22,15 @@ export default function useAuth() {
         }).then((response) => {
             console.log(response);
             localStorage.setItem('token', response.data.token);
-            setUser(response.data);
+            setLoading(true);
         });
         navigate("/", { replace: true });
     };
+    useEffect(() => {
+        setLoading(false);
+    }, []);
 
-    return {logout , handleClickLogin};
+    return {logout , handleClickLogin, loading};
     
 }
 

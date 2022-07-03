@@ -1,0 +1,17 @@
+.login-form-group {
+    display: flex;
+    align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+#container-one{
+    padding-top: 15%;
+    padding-bottom: 2%;
+}
+
+#botao {
+    padding: 0px 2% 2%;
+}
+

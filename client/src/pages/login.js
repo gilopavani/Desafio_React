@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../context/hooks/useAuth";
+import App from "../layouts/App";
+import '../estilos/login.css'
 
 
 const validationLogin = yup.object().shape({
@@ -17,38 +19,46 @@ export default function Login() {
     const handleClickLogin = useAuth().handleClickLogin;
 
     return(
-        <div>
-        <h1>Login</h1>
-        <Formik
-        initialValues={{}}
-        onSubmit={handleClickLogin}
-        validationSchema={validationLogin}
-        >
-            <Form className="login-form">
-                <div className="login-form-group">
-                    <Field name="email" className="form-field" placeholder="Email" />
-                    <ErrorMessage
-                    component="span"
-                    name="email"
-                    className="form-error"
-                    />
-                </div>
-
-                <div className="login-form-group">
-                    <Field name="password" className="form-field" placeholder="Senha" />
-                    <ErrorMessage
-                    component="span"
-                    name="password"
-                    className="form-error"
-                    />
-                </div>
-                <Button variant="primary" className="button" type="submit">Login</Button>
+        <App>
+            <div >
                 
+                <Formik
+                initialValues={{}}
+                onSubmit={handleClickLogin}
+                validationSchema={validationLogin}
+                >
+                    <Form className="login-form">
+                        <div className="login-form-group" id="container-one">
+                            <Field name="email" className="form-field" placeholder="Email" />
+                            <ErrorMessage
+                            component="span"
+                            name="email"
+                            className="form-error"
+                            />
+                        </div>
+
+                        <div className="login-form-group" id="all_Container">
+                            <Field name="password" className="form-field" placeholder="Senha" type='password' />
+                            <ErrorMessage
+                            component="span"
+                            name="password"
+                            className="form-error"
+                            />
+                        </div>
+                        <div class="container bg-light">
+                            <div class="col-md-12 text-center">
+                                <Button variant="primary" class="btn btn-default"  type="submit">Login</Button>
+                            </div>
+                        </div>
+                        
+                        
+                        {/*  */}
+                    </Form>
+                </Formik>
                 {/*  */}
-            </Form>
-        </Formik>
-        {/*  */}
-    </div> 
+            </div> 
+        </App>
+        
     );
     
 }

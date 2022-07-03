@@ -24,7 +24,7 @@ export default function Header() {
         <Nav.Link href="#features">Home</Nav.Link>
         <Nav.Link href="#pricing">Sobre</Nav.Link>
           {localStorage.getItem('token') ? (<Nav.Link href='/'>  <button onClick={logout}>Logout</button> </Nav.Link>) : (<Nav.Link href='/login'>  <button>Login</button> </Nav.Link>)} 
-        <Nav.Link >Teste</Nav.Link>
+        <Nav.Link href="/agenda">Agenda</Nav.Link>
       </Nav>
       
     </Navbar.Collapse>

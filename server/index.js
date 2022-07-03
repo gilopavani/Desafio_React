@@ -71,6 +71,21 @@ app.post("/login", (req,res)=>{
     })
 });
 
+app.post("/reg_agenda", (req,res)=>{
+    const token = req.body.token;
+    const nome = req.body.nome;
+    const detalhes = req.body.detalhes;
+    const date = req.body.date;
+
+    db.query("INSERT INTO agenda (compromisso, informacoes, data, token) VALUES (?,?,?,?)", [nome, detalhes,date, token], (err,response){
+        if(err){
+            res.send(err);
+        }
+        res.send({msg: "Cadastrado"});
+    }
+});
+
+
 app.listen(3001, () =>{
     console.log("Rodando na porta 3001");
 });

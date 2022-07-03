@@ -3,13 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavDropdown } from "react-bootstrap";
-import logout from '../../context/hooks/useAuth';
+import useAuth from '../../context/hooks/useAuth';
 import './Header.css'
 
 
 
 export default function Header() {
-
+  const logout = useAuth().logout;
 
   return(
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

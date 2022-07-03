@@ -4,10 +4,8 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as yup from "yup";
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
-import history from "../history";
-
-
-
+import { useNavigate } from "react-router-dom";
+import useAuth from "../context/hooks/useAuth";
 
 
 const validationLogin = yup.object().shape({
@@ -16,23 +14,7 @@ const validationLogin = yup.object().shape({
 });
 
 export default function Login() {
-    const token = localStorage.getItem('@welcome-app/username');
-
-    const [user, setUser] = useState();
-
-    const handleClickLogin = (values) => {
-        Axios.post("http://localhost:3001/login", {
-            email: values.email,
-            password: values.password,
-        }).then((response) => {
-            console.log(response);
-            localStorage.setItem('token', response.data.token);
-            setUser(response.data);
-        });
-        history.push('/register');
-    };
-
-
+    const handleClickLogin = useAuth().handleClickLogin;
 
     return(
         <div>

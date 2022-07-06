@@ -1,8 +1,13 @@
 
 #data {
-    display: block;
+  
+  display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+
+#center{
+  padding-top: 15%;
 }
 

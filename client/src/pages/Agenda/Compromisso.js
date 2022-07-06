@@ -46,7 +46,7 @@ export default function Compromisso() {
                 <div class="container bg-light">
                     <div class="col-md-12 text-center">
                         
-                        <div>
+                        <div id='center'>
                             <h1 id="data">Cadastro novo item</h1>
                             <Formik
                             initialValues={{}}

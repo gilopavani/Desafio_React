@@ -6,14 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 import App from "../layouts/App";
 
-const handleClickCadastro = (values) => {
-    Axios.post("http://localhost:3001/register", {
-        email: values.email,
-        password: values.password,
-    }).then((response) => {
-        console.log(response);
-    });
-};
+
 
 const validationCadastro = yup.object().shape({
     email: yup.string().email("Este email não é válido").required("Este campo é obrigatorio"),
@@ -22,6 +15,7 @@ const validationCadastro = yup.object().shape({
 });
 
 export default function Register() {
+    const handleClickCadastro = useAuth().handleClickCadastro;
     const red = useAuth().callRegister;
     if(localStorage.getItem('token')){
        return (

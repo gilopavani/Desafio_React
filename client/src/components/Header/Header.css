@@ -3,3 +3,14 @@
     padding-right:  5px;
     padding-left: 15px;
 }
+
+#right{
+    padding: 4px;
+    background-color: gray;
+}
+
+#right:hover{
+    background-color: aliceblue;
+    border-radius: 10px;
+
+}

@@ -4,18 +4,29 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import * as yup from "yup";
 import '../../estilos/agenda/novo.css'
+import useAuth from '../../context/hooks/useAuth';
 
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import { useState } from 'react';
 
 const validationCadastro = yup.object().shape({
-    titulo: yup.string().required("Este campo é obrigatorio").max(30,"Máximo 30 caracteres"),
-    descricao: yup.string().required("Este campo é obrigatorio").max(100,"Máximo 100 caracteres"),
-    data: yup.date().required("Este campo é obrigatorio").default(() => (new Date())),
+    compromisso: yup.string().required("Este campo é obrigatorio").max(30,"Máximo 30 caracteres"),
+    informacoes: yup.string().required("Este campo é obrigatorio").max(100,"Máximo 100 caracteres"),
+    date: yup.date().required("Este campo é obrigatorio"),
 });
 
 export default function Compromisso() {
-    const [selectedDate, setSelectedDate] = useState(null);
+
+    const [native, setNative] = useState("");
+    const onNativeChange = e => {
+        console.log("onNativeChange: ", e.target.value);
+        setNative(e.target.value);
+    };
+
+
+
+    const reg = useAuth().handleClickNewRegister;
+    const [selectedDate, setSelectedDate] = useState(new Date());
     if(!localStorage.getItem('token')){
         return (
             <App>
@@ -39,35 +50,36 @@ export default function Compromisso() {
                             <h1 id="data">Cadastro novo item</h1>
                             <Formik
                             initialValues={{}}
-                            // onSubmit={}
+                            onSubmit={reg}
                             validationSchema={validationCadastro}
                             >
                                 <Form className="login-form">
                                     <div className="login-form-group">
-                                        <Field name="titulo" ClassName="form-field" placeholder="Titulo" id="data"/>
+                                        <Field name="compromisso" ClassName="form-field" placeholder="Compromisso" id="data"/>
                                         <ErrorMessage
                                         component="span"
-                                        name="titulo"
+                                        name="compromisso"
                                         ClassName="form-error"
                                         />
-                                        <Field name="descricao" ClassName="form-field" placeholder="Detalhes" as="textarea" id="data"/>
+                                        <Field name="informacoes" ClassName="form-field" placeholder="Informacoes" as="textarea" id="data"/>
                                         <ErrorMessage
                                         component="span"
-                                        name="descricao"
+                                        name="informacoes"
                                         ClassName="form-error"
                                         />
-                                        <DatePicker selected={selectedDate} onChange={ date => setSelectedDate(date)}
-                                        name="data"
+                                        {/* <DatePicker selected={selectedDate} onChange={ date => setSelectedDate(date)}
+                                        name="date"
                                         id="data"
                                         dateFormat='dd/MM/yyyy'
-                                        startDate={new Date()}
                                         minDate={new Date()}
                                         showYearDropdown
                                         scrollableMonthYearDropdown
-                                        />
+                                        /> */}
+                                        {/* <input type="date" value={native} onChange={onNativeChange} name="date"/> */}
+                                        <Field name="date" ClassName="form-field" placeholder="yyyy/MM/dd"  id="data"/>
                                         <ErrorMessage
                                         component="span"
-                                        name="data"
+                                        name="date"
                                         ClassName="form-error"
                                         />
                                     

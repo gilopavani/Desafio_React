@@ -3,13 +3,14 @@ const app = express();
 const mysql = require("mysql");
 const cors = require('cors');
 const bcrypt = require("bcrypt");
+const { response } = require("express");
 const saltRounds = 10;
 
 
 const db = mysql.createPool({
     host: "localhost",
-    user: "angelo",
-    password: "gilo",
+    user: "root",
+    password: "",
     database: "desafio",
 })
 
@@ -61,7 +62,7 @@ app.post("/login", (req,res)=>{
                 if(resultado){
                     res.send({msg: "Usuario logado com sucesso", token: token });
                 }else{
-                    res.send({msg: "Conta não encontrada"});
+                    res.send({msg: "erro Conta não encontrada"});
                 }
             })
             
@@ -72,18 +73,55 @@ app.post("/login", (req,res)=>{
 });
 
 app.post("/reg_agenda", (req,res)=>{
-    const token = req.body.token;
-    const nome = req.body.nome;
-    const detalhes = req.body.detalhes;
+    const compromisso = req.body.compromisso;
+    const informacoes = req.body.informacoes;
     const date = req.body.date;
+    const token = req.body.token;
 
-    db.query("INSERT INTO agenda (compromisso, informacoes, data, token) VALUES (?,?,?,?)", [nome, detalhes, date, token], (err,response) => {
+    db.query("INSERT INTO desafio.agenda (compromisso, informacoes, date, token) VALUES (?,?,?,?)", [compromisso, informacoes,date , token], (err,response) => {
         if(err){
             res.send(err);
         }
         res.send({msg: "Cadastrado"});
     })
 });
+
+app.get("/agen_get", (req,res)=>{
+    db.query("SELECT * FROM agenda", (err,result) => {
+        if(err){
+            res.send(err);
+        }
+        res.send(result);
+    })
+});
+
+app.put("/agen_edit", (req,res) => {
+    const id = req.body.id;
+    const compromisso = req.body.compromisso;
+    const informacoes = req.body.informacoes;
+    const date = req.body.date;
+
+    db.query("UPDATE agenda SET compromisso = ?, informacoes = ?, date = ? WHERE id = ? ", [compromisso, informacoes, date, id] , (err,response) => {
+        if(err){
+            res.send(err);
+        }else{
+            res.send({msg: "Alterado com sucesso"})
+            console.log({compromisso})
+        }
+    })
+});
+
+app.delete("/delete/:id", (req,res) => {
+    const {id} = req.params;
+    db.query("DELETE FROM desafio.agenda WHERE (id = ?);", id, (err,response) => {
+        if(err){
+            res.send(err)
+        }else{
+            res.send({msg: "DELETADO COM SUCESSO"})
+            console.log({id})
+        }
+    })
+}) 
 
 
 app.listen(3001, () =>{

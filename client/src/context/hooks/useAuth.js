@@ -4,7 +4,10 @@ import history from "../../history";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
+
+
 export default function useAuth() {
+    const axios = Axios.get("http://localhost:3001/agen_get");
     const [loading, setLoading] = useState(true);
 
     function logout() {
@@ -29,7 +32,10 @@ export default function useAuth() {
             password: values.password,
         }).then((response) => {
             console.log(response);
-            localStorage.setItem('token', response.data.token);
+            if(response.data.token){
+                localStorage.setItem('token', response.data.token);
+            }
+            
             setLoading(true);
         });
         navigate("/", { replace: true });
@@ -38,7 +44,22 @@ export default function useAuth() {
         setLoading(false);
     }, []);
 
-    return {logout , handleClickLogin, loading, callRegister};
+    function handleClickNewRegister(values) {
+        const token = localStorage.getItem('token')
+        Axios.post("http://localhost:3001/reg_agenda", {
+            compromisso: values.compromisso,
+            informacoes: values.informacoes,
+            date: values.date,
+            token: token,    
+                        
+        }).then((response) => {
+            console.log(response);
+            setLoading(true);
+        });
+        navigate("/agenda", { replace: true });
+    }
+
+    return {logout , handleClickLogin, loading, callRegister, handleClickNewRegister, axios};
     
 }
 
